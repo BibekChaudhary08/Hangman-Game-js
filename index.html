@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="ques">
+        <h1>Guess the Animals Name</h1>
+    </div>
+    <!--Hangman game begins-->
+    <div id="all">
+        <div id="hangman">
+            <div class="hang1"></div>
+            <div class="hang2"></div>
+            <div class="hang3"></div>
+            <div class="hang4"></div>
+            <div class="hang5"></div>
+            <div class="hang6"></div>
+            <div class="hang7"></div>
+            <div class="hang8"></div>
+            <div class="hang9"></div>
+            <div class="hang10"></div>
+            <div class="hang11"></div>
+        </div>
+        <div id="alpha">
+            <div id="getAnimals">
+            </div>
+            <div id="keyboard">
+            </div>
+        </div>
+    </div>
+    <audio id="audio" src="audio/song.mp3"></audio>
+
+    <script>
+        const randomAnimals = [
+    "Aardvark",
+    "Albatross",
+    "Alligator",
+    "Alpaca",
+    "Ant",
+    "Anteater",
+    "Antelope",
+    "Ape",
+    "Armadillo",
+    "Donkey",
+    "Baboon",
+    "Badger",
+    "Barracuda",
+    "Bat",
+    "Bear",
+    "Beaver",
+    "Bee",
+    "Bison",
+    "Boar",
+    "Buffalo",
+    "Butterfly",
+    "Camel",
+    "Capybara",
+    "Caribou",
+    "Cassowary",
+    "Cat",
+    "Caterpillar",
+    "Cattle",
+    "Chamois",
+    "Cheetah",
+    "Chicken",
+    "Chimpanzee",
+    "Chinchilla",
+    "Chough",
+    "Clam",
+    "Cobra",
+    "Cockroach",
+    "Cod",
+    "Cormorant",
+    "Coyote",
+    "Crab",
+    "Crane",
+    "Crocodile",
+    "Crow",
+    "Curlew",
+    "Deer",
+    "Dinosaur",
+    "Dog",
+    "Dogfish",
+    "Dolphin",
+    "Dotterel",
+    "Dove",
+    "Dragonfly",
+    "Duck",
+    "Dugong",
+    "Dunlin",
+    "Eagle",
+    "Echidna",
+    "Eel",
+    "Eland",
+    "Elephant",
+    "Elk",
+    "Emu",
+    "Falcon",
+    "Ferret",
+    "Finch",
+    "Fish",
+    "Flamingo",
+    "Fly",
+    "Fox",
+    "Frog",
+    "Gaur",
+    "Gazelle",
+    "Gerbil",
+    "Giraffe",
+    "Gnat",
+    "Gnu",
+    "Goat",
+    "Goldfinch",
+    "Goldfish",
+    "Goose",
+    "Gorilla",
+    "Goshawk",
+    "Grasshopper",
+    "Grouse",
+    "Guanaco",
+    "Gull",
+    "Hamster",
+    "Hare",
+    "Hawk",
+    "Hedgehog",
+    "Heron",
+    "Herring",
+    "Hippopotamus",
+    "Hornet",
+    "Horse",
+    "Human",
+    "Hummingbird",
+    "Hyena",
+    "Ibex",
+    "Ibis",
+    "Jackal",
+    "Jaguar",
+    "Jay",
+    "Jellyfish",
+    "Kangaroo",
+    "Kingfisher",
+    "Koala",
+    "Kookabura",
+    "Kouprey",
+    "Kudu",
+    "Lapwing",
+    "Lark",
+    "Lemur",
+    "Leopard",
+    "Lion",
+    "Llama",
+    "Lobster",
+    "Locust",
+    "Loris",
+    "Louse",
+    "Lyrebird",
+    "Magpie",
+    "Mallard",
+    "Manatee",
+    "Mandrill",
+    "Mantis",
+    "Marten",
+    "Meerkat",
+    "Mink",
+    "Mole",
+    "Mongoose",
+    "Monkey",
+    "Moose",
+    "Mosquito",
+    "Mouse",
+    "Mule",
+    "Narwhal",
+    "Newt",
+    "Nightingale",
+    "Octopus",
+    "Okapi",
+    "Opossum",
+    "Oryx",
+    "Ostrich",
+    "Otter",
+    "Owl",
+    "Oyster",
+    "Panther",
+    "Parrot",
+    "Partridge",
+    "Peafowl",
+    "Pelican",
+    "Penguin",
+    "Pheasant",
+    "Pig",
+    "Pigeon",
+    "Pony",
+    "Porcupine",
+    "Porpoise",
+    "Quail",
+    "Quelea",
+    "Quetzal",
+    "Rabbit",
+    "Raccoon",
+    "Rail",
+    "Ram",
+    "Rat",
+    "Raven",
+    "Red deer",
+    "Red panda",
+    "Reindeer",
+    "Rhinoceros",
+    "Rook",
+    "Salamander",
+    "Salmon",
+    "Sand Dollar",
+    "Sandpiper",
+    "Sardine",
+    "Scorpion",
+    "Seahorse",
+    "Seal",
+    "Shark",
+    "Sheep",
+    "Shrew",
+    "Skunk",
+    "Snail",
+    "Snake",
+    "Sparrow",
+    "Spider",
+    "Spoonbill",
+    "Squid",
+    "Squirrel",
+    "Starling",
+    "Stingray",
+    "Stinkbug",
+    "Stork",
+    "Swallow",
+    "Swan",
+    "Tapir",
+    "Tarsier",
+    "Termite",
+    "Tiger",
+    "Toad",
+    "Trout",
+    "Turkey",
+    "Turtle",
+    "Viper",
+    "Vulture",
+    "Wallaby",
+    "Walrus",
+    "Wasp",
+    "Weasel",
+    "Whale",
+    "Wildcat",
+    "Wolf",
+    "Wolverine",
+    "Wombat",
+    "Woodcock",
+    "Woodpecker",
+    "Worm",
+    "Wren",
+    "Yak",
+    "Zebra"
+]
+
+        let getAnimals = document.getElementById('getAnimals');
+        let keyboard = document.getElementById('keyboard');
+        let audio = document.getElementById('audio');
+        let letter_space_array = [];
+        const hangman = document.getElementById('hangman').children;
+        // console.log(hangman);
+        let totalChances = 0;
+
+        // to hide the hangman initially
+        function addHangman(){
+        for(let i = 0; i < hangman.length; i++){
+                let hangmanElm = hangman[i];
+                    hangmanElm.classList.add('hangmanDisplay');
+            }
+        }    
+
+        // here we have generate buttons of Alphabets from A to Z using ASCII values.
+        function getButtons() {
+            let buttonsArray = Array(26).fill(null);
+            let i = 65;
+            buttonsArray = buttonsArray.map((value) => {
+                return String.fromCharCode(i++);
+            })
+            buttonsArray.forEach((el) =>{
+                let btn = document.createElement('button');
+                btn.textContent = el;
+                btn.classList.add("keyword_btn");
+                keyboard.appendChild(btn);
+            })
+
+            let keywordsButtons = document.querySelectorAll('.keyword_btn');
+            keywordsButtons.forEach((button)=>{
+                button.addEventListener("click", function(e){
+                    const letter = e.target.textContent;
+                    let letterMatched = false; //flag to check if any letter matched
+                    for (let i = 0; i < letter_space_array.length; i++) {
+// here we can't get letter_space.textContent directly. so we have create an array from letter_space_Array, so that we can get alphabets of Animal Name in array form.                        
+                        if (letter === letter_space_array[i].textContent) {
+                            letter_space_array[i].style.color = "green";
+                            e.target.style.background = "red";
+                            letterMatched = true;     //if any letter letter matches then set flag true
+                        }
+                    }    
+                    //if any letter doesnt matches
+                        if(!letterMatched){
+                            totalChances++;
+                            console.log(totalChances);
+                            e.target.style.background = "grey";
+                            hangmanFunction();
+                        }
+
+                        if (checkALLMatchedLetter()){
+                            audio.play();
+                            setTimeout(() =>{
+                            alert("Bingo! You played really well");
+                            resetAnimalName(); 
+                            addHangman();
+                            totalChances = 0;        
+                            },100);
+                        }
+                        
+                
+                })
+            })
+
+            function checkALLMatchedLetter(){
+                for(let i = 0; i < letter_space_array.length; i++){
+                if(letter_space_array[i].style.color !== "green"){
+                     return false;
+                }
+             }
+                return true;
+          } 
+
+        }
+
+        // for to reset animalName, buttons colors, etc  when it matches the alphabets 
+        function resetAnimalName(){
+            letter_space_array.forEach((letter_space) => {
+                letter_space.style.color = " ";
+               // console.log(letter_space);
+            })
+            let keywordsButtons = document.querySelectorAll('.keyword_btn');
+            keywordsButtons.forEach((button) => {
+                button.style.background = "yellow";
+            });
+            randomAnimalsGenerator();
+        }
+        
+
+        //here we will generate random Animal Name for getAnimals.
+        function randomAnimalsGenerator(){
+            let randomValue = Math.floor(Math.random() * randomAnimals.length);
+            let animalName = randomAnimals[randomValue].toUpperCase();
+            getAnimals.innerHTML = " ";
+            letter_space_array = [];
+            for (let i = 0; i < animalName.length; i++){
+                let letter_space = document.createElement('span');
+                letter_space.textContent = animalName[i];
+             //   console.log(letter_space.textContent);
+                getAnimals.appendChild(letter_space);
+                letter_space_array.push(letter_space);
+            }
+        }
+
+        //for to unhide hangman serially
+        function hangmanFunction(){
+            for(let i = 0; i < hangman.length; i++){
+                let hangmanElm = hangman[i];
+                if(i < totalChances){
+                hangmanElm.classList.remove('hangmanDisplay');
+                }
+            }
+
+            if(totalChances === hangman.length){
+                    setTimeout(() => {
+                        audio.play();
+                        alert("Mission Failed");
+                        resetAnimalName();
+                        addHangman();
+                        totalChances = 0;
+                    }, 500);
+                }
+        }
+
+        
+        
+            
+
+
+        getButtons();
+        addHangman();
+        randomAnimalsGenerator();
+
+        
+    </script>
+</body>
+</html>
